@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPO Analysis - Zomato Ltd.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .executive-summary {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            font-size: 1.4em;
+            margin: 15px 0 10px;
+        }
+        
+        .financial-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        
+        .financial-table th,
+        .financial-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: right;
+        }
+        
+        .financial-table th {
+            background: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .financial-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .financial-table tr:hover {
+            background: #e8f4f8;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        
+        .impact-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .impact-result h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .impact-result .metric {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .assumptions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .assumption-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .assumption-card h4 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .chart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .waterfall-chart {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .waterfall-bar {
+            display: inline-block;
+            width: 100px;
+            margin: 5px;
+            text-align: center;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            padding: 10px 5px;
+        }
+        
+        .waterfall-positive {
+            background: #28a745;
+        }
+        
+        .waterfall-neutral {
+            background: #6c757d;
+        }
+        
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 300px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .bar {
+            flex: 1;
+            margin: 0 5px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .bar-label {
+            position: absolute;
+            top: -20px;
+            width: 100%;
+            color: #333;
+        }
+        
+        .pie-chart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        canvas {
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>IPO Analysis</h1>
+            <p class="subtitle">Zomato Ltd. - Regulatory Framework Analysis under SEBI ICDR Regulations 2018</p>
+            <div class="executive-summary">
+                <h3>Executive Summary</h3>
+                <p><strong>Company:</strong> Zomato Ltd.</p>
+                <p><strong>Issue Size:</strong> ₹9,375 Cr</p>
+                <p><strong>Issue Price:</strong> ₹72–76 per share</p>
+                <p><strong>Listing Date:</strong> July 23, 2021</p>
+                <p><strong>Assessment:</strong> Overvalued at upper band</p>
+                <p><strong>Regulatory Compliance:</strong> Fully compliant with SEBI ICDR Regulations 2018</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>1. Company Background & Business Model</h2>
+            <h3>1.1 Company Overview</h3>
+            <div class="assumption-card">
+                <p>Zomato Ltd. is India’s leading online food delivery platform, operating in over 500 cities, connecting customers, restaurants, and delivery partners via a proprietary technology platform.</p>
+                <p><strong>Key Business Segments:</strong></p>
+                <ul>
+                    <li>Food Delivery: Core B2C platform</li>
+                    <li>Dining Out: Restaurant discovery and reservations</li>
+                    <li>Hyperpure: B2B supply chain for restaurants</li>
+                    <li>Zomato Pro: Customer loyalty program</li>
+                </ul>
+            </div>
+            <h3>1.2 Promoter & Management Structure</h3>
+            <div class="assumptions-grid">
+                <div class="assumption-card">
+                    <h4>Promoter Details</h4>
+                    <ul>
+                        <li>No identifiable promoter (professionally managed)</li>
+                        <li>Key Shareholders:</li>
+                        <li>Deepinder Goyal (CEO): 5.55%</li>
+                        <li>Info Edge (India) Ltd.: 18.68%</li>
+                        <li>ESOP Pool: ~10%</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Board Composition</h4>
+                    <ul>
+                        <li>Independent Directors: 4/8 (50%)</li>
+                        <li>Woman Director: Present</li>
+                        <li>Audit Committee: Majority independent, SEBI compliant</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>1.3 Competitive Landscape</h3>
+            <div class="assumption-card">
+                <ul>
+                    <li>Primary Competitor: Swiggy (unlisted)</li>
+                    <li>Market Share: ~50% in food delivery (duopoly)</li>
+                    <li>Competitive Advantages: Early entry (2010), strong brand, robust technology</li>
+                </ul>
+                <div class="highlight">
+                    <p><strong>Insight:</strong> Zomato’s market leadership and technology infrastructure provide a strong competitive edge in a duopoly market.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. IPO Structure & Use of Proceeds</h2>
+            <h3>2.1 Issue Structure</h3>
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h4>Share Allocation</h4>
+                    <div class="pie-chart">
+                        <canvas id="allocationPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <table class="financial-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Amount (₹ Cr)</th>
+                        <th>% of Total Issue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fresh Issue</td>
+                        <td>9,000</td>
+                        <td>96.0%</td>
+                    </tr>
+                    <tr>
+                        <td>Offer for Sale (OFS)</td>
+                        <td>375</td>
+                        <td>4.0%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Issue Size</strong></td>
+                        <td><strong>9,375</strong></td>
+                        <td><strong>100.0%</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Share Allocation:</strong></p>
+            <ul>
+                <li>QIB: 75% (44.76% anchor investors)</li>
+                <li>NII: 15%</li>
+                <li>RII: 10%</li>
+                <li>Employee Reservation: 65 lakh shares</li>
+            </ul>
+            <h3>2.2 Use of Proceeds Analysis</h3>
+            <table class="financial-table">
+                <thead>
+                    <tr>
+                        <th>Use of Proceeds</th>
+                        <th>Amount (₹ Cr)</th>
+                        <th>% of Fresh Issue</th>
+                        <th>SEBI Reg. 32 Compliance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Organic & Inorganic Growth</td>
+                        <td>6,750</td>
+                        <td>75.0%</td>
+                        <td>✓ Specific and quantified</td>
+                    </tr>
+                    <tr>
+                        <td>General Corporate Purposes</td>
+                        <td>2,250</td>
+                        <td>25.0%</td>
+                        <td>✓ Within 25% limit</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>9,000</strong></td>
+                        <td><strong>100.0%</strong></td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Regulatory Compliance (Reg. 32):</strong></p>
+            <ul>
+                <li>✓ Specific utilization timeline</li>
+                <li>✓ Interim use disclosed (fixed deposits)</li>
+                <li>✓ Monitoring agency appointed</li>
+                <li>✓ Board approval obtained</li>
+            </ul>
+            <div class="highlight">
+                <p><strong>Insight:</strong> High fresh issue proportion and compliant use of proceeds reflect a growth-focused IPO structure.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. Financial Analysis & Valuation</h2>
+            <h3>3.1 Historical Financial Performance</h3>
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h4>Revenue Growth (FY2019–FY2024)</h4>
+                    <div class="bar-chart" id="revenueBarChart">
+                        <div class="bar" style="height: 80px; background: #3498db;">
+                            <div class="bar-label">FY2019</div>
+                            ₹1,398 Cr
+                        </div>
+                        <div class="bar" style="height: 120px; background: #3498db;">
+                            <div class="bar-label">FY2020</div>
+                            ₹2,743 Cr
+                        </div>
+                        <div class="bar" style="height: 100px; background: #3498db;">
+                            <div class="bar-label">FY2021</div>
+                            ₹1,994 Cr
+                        </div>
+                        <div class="bar" style="height: 180px; background: #3498db;">
+                            <div class="bar-label">FY2022</div>
+                            ₹5,230 Cr
+                        </div>
+                        <div class="bar" style="height: 240px; background: #3498db;">
+                            <div class="bar-label">FY2023</div>
+                            ₹8,416 Cr
+                        </div>
+                        <div class="bar" style="height: 280px; background: #3498db;">
+                            <div class="bar-label">FY2024</div>
+                            ₹12,114 Cr
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="financial-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>FY2019</th>
+                        <th>FY2020</th>
+                        <th>FY2021</th>
+                        <th>CAGR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Revenue (₹ Cr)</td>
+                        <td>1,398</td>
+                        <td>2,743</td>
+                        <td>1,994</td>
+                        <td>19.3%</td>
+                    </tr>
+                    <tr>
+                        <td>Food Delivery (₹ Cr)</td>
+                        <td>1,029</td>
+                        <td>2,062</td>
+                        <td>1,800</td>
+                        <td>32.4%</td>
+                    </tr>
+                    <tr>
+                        <td>Advertising (₹ Cr)</td>
+                        <td>369</td>
+                        <td>681</td>
+                        <td>194</td>
+                        <td>-27.5%</td>
+                    </tr>
+                    <tr>
+                        <td>EBITDA (₹ Cr)</td>
+                        <td>(1,010)</td>
+                        <td>(2,200)</td>
+                        <td>(1,200)</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>PAT (₹ Cr)</td>
+                        <td>(1,010)</td>
+                        <td>(2,386)</td>
+                        <td>(816)</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>EBITDA Margin</td>
+                        <td>-72.2%</td>
+                        <td>-80.2%</td>
+                        <td>-60.2%</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>3.2 Valuation Metrics</h3>
+            <table class="financial-table">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Geography</th>
+                        <th>P/S Ratio</th>
+                        <th>EV/Revenue</th>
+                        <th>Market Cap ($ bn)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Zomato</td>
+                        <td>India</td>
+                        <td>29.9x</td>
+                        <td>26.8x</td>
+                        <td>9.0</td>
+                    </tr>
+                    <tr>
+                        <td>DoorDash</td>
+                        <td>US</td>
+                        <td>8.5x</td>
+                        <td>8.0x</td>
+                        <td>50.0</td>
+                    </tr>
+                    <tr>
+                        <td>Delivery Hero</td>
+                        <td>Europe</td>
+                        <td>4.0x</td>
+                        <td>3.5x</td>
+                        <td>13.0</td>
+                    </tr>
+                    <tr>
+                        <td>Meituan</td>
+                        <td>China</td>
+                        <td>5.5x</td>
+                        <td>5.0x</td>
+                        <td>175.0</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>IPO Valuation (₹76/share):</strong></p>
+            <ul>
+                <li>Market Cap: ₹67,032 Cr</li>
+                <li>Enterprise Value: ₹60,000 Cr (post-issue)</li>
+                <li>P/S Ratio: 29.9x (FY2021)</li>
+                <li>EV/Revenue: 26.8x (FY2021)</li>
+            </ul>
+            <h3>3.3 DCF Valuation Model</h3>
+            <div class="assumption-card">
+                <p><strong>Key Assumptions:</strong></p>
+                <ul>
+                    <li>Revenue CAGR (2021–2026): 40%</li>
+                    <li>Terminal Growth Rate: 3%</li>
+                    <li>WACC: 12.5%</li>
+                    <li>EBITDA Margin (Terminal): 10%</li>
+                </ul>
+                <p><strong>Valuation Output:</strong></p>
+                <ul>
+                    <li>Fair Value: ₹60–70 per share</li>
+                    <li>IPO Price: ₹72–76 per share</li>
+                    <li>Assessment: Overvalued at upper band</li>
+                </ul>
+                <div class="highlight">
+                    <p><strong>Insight:</strong> High P/S ratio reflects market optimism but raises overvaluation concerns due to lack of profitability.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. Risk Factor Analysis</h2>
+            <h3>4.1 Business Risks</h3>
+            <div class="assumptions-grid">
+                <div class="assumption-card">
+                    <h4>Market Risks</h4>
+                    <ul>
+                        <li>Competition: Swiggy, Amazon Food</li>
+                        <li>Regulatory: Food safety, gig economy</li>
+                        <li>Economic Slowdown: Discretionary spending</li>
+                        <li>Customer Acquisition Costs: Rising</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Operational Risks</h4>
+                    <ul>
+                        <li>Gig Delivery Partners: Dependency</li>
+                        <li>Food Safety: Quality issues</li>
+                        <li>Technology: Outages, cybersecurity</li>
+                        <li>Hyperpure: Supply chain disruptions</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>4.2 Financial Risks</h3>
+            <div class="assumption-card">
+                <p><strong>Profitability Concerns:</strong></p>
+                <ul>
+                    <li>Consistent Losses: FY2019–21</li>
+                    <li>Cash Burn: ₹269 Cr (9M FY2021)</li>
+                    <li>Funding Dependence: External capital</li>
+                    <li>Unit Economics: Challenges in food delivery</li>
+                </ul>
+                <p><strong>Liquidity Risks:</strong></p>
+                <ul>
+                    <li>High Working Capital Needs</li>
+                    <li>Expansion Costs</li>
+                    <li>Regulatory Compliance Costs</li>
+                </ul>
+            </div>
+            <h3>4.3 Regulatory Risks</h3>
+            <div class="assumption-card">
+                <ul>
+                    <li>FSSAI Compliance</li>
+                    <li>Data Protection Laws</li>
+                    <li>Gig Worker Regulations</li>
+                    <li>Foreign Investment Restrictions</li>
+                </ul>
+                <div class="highlight">
+                    <p><strong>Insight:</strong> Competitive and regulatory risks require robust risk management to sustain growth.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>5. SEBI ICDR Regulations 2018 Compliance Analysis</h2>
+            <h3>5.1 Eligibility Criteria (Regulation 26)</h3>
+            <div class="assumption-card">
+                <p><strong>Track Record:</strong> Qualified under alternative criteria for loss-making companies (large issue size, institutional interest).</p>
+                <p><strong>Status:</strong> ✓ COMPLIANT</p>
+            </div>
+            <h3>5.2 Offer Document Disclosures (Regulation 50)</h3>
+            <div class="assumption-card">
+                <ul>
+                    <li>✓ Risk Factors: 38 disclosed</li>
+                    <li>✓ Management Discussion</li>
+                    <li>✓ Financial Statements: 5 years</li>
+                    <li>✓ Use of Proceeds: Detailed</li>
+                    <li>✓ Related Party Transactions</li>
+                    <li>✓ Material Agreements</li>
+                    <li>✓ Litigation Disclosures</li>
+                </ul>
+            </div>
+            <h3>5.3 Pricing and Allocation (Regulation 32)</h3>
+            <div class="assumption-card">
+                <p><strong>Price Band:</strong></p>
+                <ul>
+                    <li>✓ ₹72–76 (5.6% range)</li>
+                    <li>✓ Floor price disclosed</li>
+                    <li>✓ Issue price justified</li>
+                </ul>
+                <p><strong>Allocation:</strong></p>
+                <ul>
+                    <li>✓ QIB: 75%, NII: 15%, RII: 10%</li>
+                    <li>✓ Employee Reservation: 65 lakh shares</li>
+                    <li>✓ Minimum Application: 195 shares</li>
+                </ul>
+            </div>
+            <h3>5.4 Post-Issue Obligations</h3>
+            <div class="assumption-card">
+                <ul>
+                    <li>✓ Stock Exchange Listing (BSE/NSE)</li>
+                    <li>✓ SEBI LODR Compliance</li>
+                    <li>✓ Quarterly Reporting</li>
+                    <li>✓ Proceeds Monitoring</li>
+                </ul>
+                <div class="highlight">
+                    <p><strong>Insight:</strong> Full compliance with SEBI ICDR enhances investor confidence in governance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>6. Red Herring Prospectus (RHP) Analysis</h2>
+            <h3>6.1 Key Sections Analysis</h3>
+            <div class="assumptions-grid">
+                <div class="assumption-card">
+                    <h4>Industry Overview</h4>
+                    <ul>
+                        <li>Market Sizing: RedSeer estimates</li>
+                        <li>Competition: Swiggy, QSRs</li>
+                        <li>Regulatory Environment</li>
+                        <li>Technology Trends</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Business Description</h4>
+                    <ul>
+                        <li>Three-sided Marketplace</li>
+                        <li>Revenue Diversification</li>
+                        <li>Technology Architecture</li>
+                        <li>Grocery Expansion (Blinkit)</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Management Team</h4>
+                    <ul>
+                        <li>Deepinder Goyal (CEO)</li>
+                        <li>Akshant Goyal (CFO)</li>
+                        <li>Board: 50% independent</li>
+                        <li>Compensation Disclosed</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>6.2 Material Information</h3>
+            <div class="assumptions-grid">
+                <div class="assumption-card">
+                    <h4>Related Party Transactions</h4>
+                    <ul>
+                        <li>Value: ~₹100 Cr (5 years)</li>
+                        <li>Nature: Marketing, rentals</li>
+                        <li>Approvals: Board, audit committee</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Outstanding Litigation</h4>
+                    <ul>
+                        <li>Civil Cases: ~50 (₹20 Cr)</li>
+                        <li>Criminal Cases: ~10 (non-material)</li>
+                        <li>Tax Disputes: ~5 (₹10 Cr)</li>
+                        <li>Assessment: Not adverse</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Insight:</strong> Transparent RHP disclosures strengthen investor trust in Zomato’s governance.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>7. Comparative Analysis with Listed Peers</h2>
+            <h3>7.1 Post-Listing Performance</h3>
+            <div class="waterfall-chart">
+                <div class="waterfall-bar waterfall-neutral">
+                    Listing Price<br>₹116
+                </div>
+                <div class="waterfall-bar waterfall-positive">
+                    Growth Catalysts<br>+₹100
+                </div>
+                <div class="waterfall-bar waterfall-positive">
+                    Market Sentiment<br>+₹48
+                </div>
+                <div class="waterfall-bar waterfall-neutral">
+                    Current Price<br>₹264
+                </div>
+            </div>
+            <p><strong>Stock Performance (July 2021–July 2025):</strong></p>
+            <ul>
+                <li>Listing Price: ₹116 (NSE)</li>
+                <li>Current Price: ₹264</li>
+                <li>Returns: 127.6% (vs. Nifty 50: ~45%)</li>
+                <li>Volatility: High (beta: 1.7)</li>
+            </ul>
+            <h3>7.2 Operational Metrics Evolution</h3>
+            <table class="financial-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>FY2021</th>
+                        <th>FY2024</th>
+                        <th>Growth</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Active Customers</td>
+                        <td>54.0 mn</td>
+                        <td>80.0 mn</td>
+                        <td>48.1%</td>
+                    </tr>
+                    <tr>
+                        <td>Restaurant Partners</td>
+                        <td>1.9 lakh</td>
+                        <td>3.0 lakh</td>
+                        <td>57.9%</td>
+                    </tr>
+                    <tr>
+                        <td>Delivery Partners</td>
+                        <td>3.5 lakh</td>
+                        <td>5.5 lakh</td>
+                        <td>57.1%</td>
+                    </tr>
+                    <tr>
+                        <td>Average Order Value</td>
+                        <td>₹395</td>
+                        <td>₹460</td>
+                        <td>16.5%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>7.3 Financial Performance Post-IPO</h3>
+            <table class="financial-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Revenue (₹ Cr)</th>
+                        <th>Growth %</th>
+                        <th>EBITDA (₹ Cr)</th>
+                        <th>PAT (₹ Cr)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FY2022</td>
+                        <td>5,230</td>
+                        <td>162%</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>FY2023</td>
+                        <td>8,416</td>
+                        <td>61%</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>FY2024</td>
+                        <td>12,114</td>
+                        <td>44%</td>
+                        <td>186</td>
+                        <td>351</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight">
+                <p><strong>Insight:</strong> Strong post-IPO growth and profitability by FY2024 validate Zomato’s long-term potential.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>8. Investment Banking Perspective</h2>
+            <h3>8.1 Deal Structure Assessment</h3>
+            <div class="assumptions-grid">
+                <div class="assumption-card">
+                    <h4>Strengths</h4>
+                    <ul>
+                        <li>High Fresh Issue: 96:4 ratio</li>
+                        <li>Strong Institutional Demand: 38.25x</li>
+                        <li>Comprehensive Risk Disclosures</li>
+                        <li>Growth Potential in Food Delivery</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Areas of Concern</h4>
+                    <ul>
+                        <li>High Valuation: P/S 29.9x</li>
+                        <li>No Profitability at IPO</li>
+                        <li>Duopoly Risks</li>
+                        <li>Regulatory Uncertainties</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>8.2 Due Diligence Findings</h3>
+            <div class="assumptions-grid">
+                <div class="assumption-card">
+                    <h4>Financial Due Diligence</h4>
+                    <ul>
+                        <li>Revenue Recognition: Ind AS compliant</li>
+                        <li>Working Capital: Adequate</li>
+                        <li>Cash Flow Projections: Optimistic but reasonable</li>
+                        <li>Accounting Policies: Aligned</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Legal Due Diligence</h4>
+                    <ul>
+                        <li>Corporate Structure: Optimized</li>
+                        <li>Material Agreements: Reviewed</li>
+                        <li>IP: App, platform protected</li>
+                        <li>Regulatory Compliance: Robust</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>8.3 Risk Assessment</h3>
+            <div class="assumption-card">
+                <ul>
+                    <li>Business Model: Commission-based revenue</li>
+                    <li>Competition: Swiggy, new entrants</li>
+                    <li>Regulatory: Food safety, labor, FDI</li>
+                    <li>Technology: Scalability, security</li>
+                    <li>Financial: Cash burn, funding needs</li>
+                </ul>
+                <div class="highlight">
+                    <p><strong>Insight:</strong> Strong deal structure and due diligence mitigated risks, but high valuation requires caution.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>9. Regulatory Compliance Score</h2>
+            <h3>9.1 SEBI ICDR Compliance Matrix</h3>
+            <table class="financial-table">
+                <thead>
+                    <tr>
+                        <th>Regulation</th>
+                        <th>Requirement</th>
+                        <th>Compliance Status</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Reg 26</td>
+                        <td>Eligibility Criteria</td>
+                        <td>✓ Compliant</td>
+                        <td>10/10</td>
+                    </tr>
+                    <tr>
+                        <td>Reg 32</td>
+                        <td>Use of Proceeds</td>
+                        <td>✓ Compliant</td>
+                        <td>10/10</td>
+                    </tr>
+                    <tr>
+                        <td>Reg 50</td>
+                        <td>Offer Document</td>
+                        <td>✓ Compliant</td>
+                        <td>10/10</td>
+                    </tr>
+                    <tr>
+                        <td>Reg 60</td>
+                        <td>Pricing Mechanism</td>
+                        <td>✓ Compliant</td>
+                        <td>10/10</td>
+                    </tr>
+                    <tr>
+                        <td>Reg 76</td>
+                        <td>Allocation Process</td>
+                        <td>✓ Compliant</td>
+                        <td>10/10</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Overall</strong></td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><strong>50/50 (100%)</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>9.2 Areas of Excellence</h3>
+            <div class="assumptions-grid">
+                <div class="assumption-card">
+                    <h4>Disclosure Quality</h4>
+                    <ul>
+                        <li>Risk Factors: 38 disclosed</li>
+                        <li>Use of Proceeds: Transparent</li>
+                        <li>Financial Reporting: Robust</li>
+                        <li>Business Model: Clear</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Regulatory Adherence</h4>
+                    <ul>
+                        <li>Timely Approvals: SEBI, RoC</li>
+                        <li>Listing Compliance: BSE/NSE</li>
+                        <li>Investor Protection: Implemented</li>
+                        <li>Proceeds Monitoring: Agency appointed</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Insight:</strong> Exemplary compliance enhances Zomato’s credibility for investors.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>10. Final Assessment & Recommendation</h2>
+            <h3>10.1 IPO Pricing Analysis</h3>
+            <div class="assumption-card">
+                <p><strong>Valuation Conclusion:</strong></p>
+                <ul>
+                    <li>Fair Value: ₹60–70 per share</li>
+                    <li>IPO Price: ₹72–76 per share</li>
+                    <li>Assessment: Overvalued at upper band</li>
+                </ul>
+                <p><strong>Justification:</strong></p>
+                <ul>
+                    <li>Premium reflects market leadership</li>
+                    <li>High multiples vs. global peers</li>
+                    <li>Long-term growth in food delivery</li>
+                </ul>
+            </div>
+            <h3>10.2 Investment Recommendation</h3>
+            <div class="assumptions-grid">
+                <div class="assumption-card">
+                    <h4>Institutional Investors</h4>
+                    <ul>
+                        <li>Recommendation: SUBSCRIBE WITH CAUTION</li>
+                        <li>Rationale: Growth vs. valuation risks</li>
+                        <li>Allocation: 1–2% of portfolio</li>
+                    </ul>
+                </div>
+                <div class="assumption-card">
+                    <h4>Retail Investors</h4>
+                    <ul>
+                        <li>Recommendation: SUBSCRIBE (High-risk)</li>
+                        <li>Rationale: Growth offset by volatility</li>
+                        <li>Allocation: Maximum 1% of portfolio</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>10.3 Post-IPO Outlook</h3>
+            <div class="impact-result">
+                <h3>Investment Outlook</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div>
+                        <h4>12-Month Target</h4>
+                        <div class="metric">₹150–160</div>
+                    </div>
+                    <div>
+                        <h4>3–5 Year Target</h4>
+                        <div class="metric">₹300–320</div>
+                    </div>
+                    <div>
+                        <h4>Post-IPO Returns</h4>
+                        <div class="metric">127.6%</div>
+                    </div>
+                </div>
+                <p><strong>Key Catalysts:</strong> Profitability, Blinkit expansion</p>
+                <p><strong>Risk Factors:</strong> Competition, regulatory changes</p>
+                <div class="highlight">
+                    <p><strong>Implication:</strong> High-growth potential with risks; suitable for risk-tolerant investors.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>11. Conclusion</h2>
+            <div class="assumption-card">
+                <p>Zomato’s IPO is a well-structured offering, fully compliant with SEBI ICDR Regulations 2018. The company demonstrates strong market leadership, a scalable technology platform, and a clear path to profitability (FY2024 EBITDA: ₹186 Cr, PAT: ₹351 Cr). However, the IPO’s premium valuation (P/S 29.9x) raises overvaluation concerns.</p>
+                <p><strong>Key Conclusions:</strong></p>
+                <ul>
+                    <li>Regulatory Compliance: Exemplary adherence</li>
+                    <li>Pricing: Overvalued but justified by growth</li>
+                    <li>Risk-Reward: High growth with risks</li>
+                    <li>Market Impact: Boosts fintech/foodtech IPO sentiment</li>
+                </ul>
+                <p><strong>Learning Points:</strong></p>
+                <ul>
+                    <li>Robust risk disclosures</li>
+                    <li>Technology-driven models</li>
+                    <li>SEBI framework effectiveness</li>
+                    <li>Investor appetite for growth companies</li>
+                </ul>
+                <p><strong>Disclaimer:</strong> This analysis is for educational purposes only and should not be construed as investment advice. Investors should conduct independent research.</p>
+                <p><strong>Prepared By:</strong> Himanshu</p>
+                <p><strong>Date:</strong> July 17, 2025</p>
+                <div class="highlight">
+                    <p><strong>Implication:</strong> Zomato’s IPO sets a precedent for high-growth tech IPOs in India, balancing risks with strong fundamentals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Allocation Pie Chart
+        const allocationCtx = document.getElementById('allocationPieChart').getContext('2d');
+        new Chart(allocationCtx, {
+            type: 'pie',
+            data: {
+                labels: ['QIB (75%)', 'NII (15%)', 'RII (10%)'],
+                datasets: [{
+                    data: [75, 15, 10],
+                    backgroundColor: ['#3498db', '#e74c3c', '#2ecc71'],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#333' }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
